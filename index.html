@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Name - Portfolio</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Courier New', Courier, monospace;
+            line-height: 1.8;
+            color: #000;
+            background: #f5f5f0;
+            background-image: 
+                repeating-linear-gradient(
+                    0deg,
+                    transparent,
+                    transparent 2px,
+                    rgba(0,0,0,0.03) 2px,
+                    rgba(0,0,0,0.03) 4px
+                );
+        }
+
+        header {
+            background: #000;
+            color: #fff;
+            padding: 4rem 2rem;
+            text-align: center;
+            border-bottom: 4px solid #000;
+            position: relative;
+        }
+
+        header::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: #000;
+        }
+
+        header h1 {
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+            letter-spacing: 0.1em;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        header p {
+            font-size: 1.1rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+        }
+
+        nav {
+            background: #fff;
+            padding: 1.5rem;
+            border-bottom: 2px solid #000;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            color: #000;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            border-bottom: 2px solid transparent;
+            padding-bottom: 2px;
+            transition: border-color 0.2s;
+        }
+
+        nav a:hover {
+            border-bottom-color: #000;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+
+        section {
+            background: #fff;
+            margin-bottom: 3rem;
+            padding: 3rem;
+            border: 3px solid #000;
+            box-shadow: 8px 8px 0 #000;
+            position: relative;
+        }
+
+        section::before {
+            content: '■';
+            position: absolute;
+            top: -15px;
+            left: 20px;
+            background: #fff;
+            padding: 0 10px;
+            font-size: 1.5rem;
+        }
+
+        h2 {
+            color: #000;
+            margin-bottom: 2rem;
+            font-size: 2rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            border-bottom: 3px solid #000;
+            padding-bottom: 0.5rem;
+            font-weight: bold;
+        }
+
+        .paper {
+            margin-bottom: 2.5rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px dashed #000;
+        }
+
+        .paper:last-child {
+            border-bottom: none;
+        }
+
+        .paper h3 {
+            color: #000;
+            margin-bottom: 0.8rem;
+            font-size: 1.3rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .paper-meta {
+            color: #000;
+            font-size: 0.95rem;
+            margin-bottom: 0.5rem;
+            line-height: 1.6;
+        }
+
+        .paper p {
+            margin-top: 1rem;
+            text-align: justify;
+        }
+
+        .paper-links {
+            margin-top: 1rem;
+        }
+
+        .paper-links a {
+            display: inline-block;
+            background: #000;
+            color: #fff;
+            padding: 0.5rem 1.5rem;
+            text-decoration: none;
+            margin-right: 1rem;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+            font-weight: bold;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            border: 2px solid #000;
+            transition: all 0.2s;
+        }
+
+        .paper-links a:hover {
+            background: #fff;
+            color: #000;
+        }
+
+        .artwork-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .artwork-item {
+            border: 3px solid #000;
+            background: #fff;
+            transition: transform 0.2s;
+        }
+
+        .artwork-item:hover {
+            transform: translate(4px, 4px);
+        }
+
+        .artwork-img {
+            width: 100%;
+            height: 200px;
+            background: #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 1.2rem;
+            font-weight: bold;
+            letter-spacing: 0.1em;
+            border-bottom: 3px solid #000;
+        }
+
+        .artwork-info {
+            padding: 1.5rem;
+            background: #fff;
+        }
+
+        .artwork-info h3 {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .artwork-info p {
+            color: #000;
+            font-size: 0.9rem;
+        }
+
+        footer {
+            background: #000;
+            color: #fff;
+            text-align: center;
+            padding: 3rem 2rem;
+            margin-top: 4rem;
+            border-top: 4px solid #000;
+        }
+
+        footer p {
+            letter-spacing: 0.1em;
+        }
+
+        .contact-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .contact-links a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: bold;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            border-bottom: 2px solid transparent;
+            padding-bottom: 2px;
+            transition: border-color 0.2s;
+        }
+
+        .contact-links a:hover {
+            border-bottom-color: #fff;
+        }
+
+        p {
+            text-align: justify;
+            text-justify: inter-word;
+        }
+
+        strong {
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Your Name</h1>
+        <p>Researcher | Artist | Creator</p>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="#about">About</a></li>
+            <li><a href="#publications">Publications</a></li>
+            <li><a href="#artwork">Artwork</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <section id="about">
+            <h2>About Me</h2>
+            <p>Write a brief introduction about yourself here. Share your research interests, artistic vision, educational background, and what drives your work. This is your opportunity to connect with visitors and give them context about who you are and what you do.</p>
+        </section>
+
+        <section id="publications">
+            <h2>Publications</h2>
+            
+            <div class="paper">
+                <h3>Title of Your First Paper</h3>
+                <p class="paper-meta"><strong>Authors:</strong> Your Name, Co-Author 1, Co-Author 2</p>
+                <p class="paper-meta"><strong>Published in:</strong> Conference/Journal Name, Year</p>
+                <p>Brief description or abstract of your paper. Explain the key contributions and findings in a way that's accessible to a broader audience.</p>
+                <div class="paper-links">
+                    <a href="#" target="_blank">PDF</a>
+                    <a href="#" target="_blank">DOI</a>
+                    <a href="#" target="_blank">Code</a>
+                </div>
+            </div>
+
+            <div class="paper">
+                <h3>Title of Your Second Paper</h3>
+                <p class="paper-meta"><strong>Authors:</strong> Your Name, Co-Author 1</p>
+                <p class="paper-meta"><strong>Published in:</strong> Conference/Journal Name, Year</p>
+                <p>Brief description or abstract of your paper. Highlight what makes this work interesting and important.</p>
+                <div class="paper-links">
+                    <a href="#" target="_blank">PDF</a>
+                    <a href="#" target="_blank">DOI</a>
+                </div>
+            </div>
+
+            <div class="paper">
+                <h3>Title of Your Third Paper</h3>
+                <p class="paper-meta"><strong>Authors:</strong> Your Name, Co-Author 1, Co-Author 2, Co-Author 3</p>
+                <p class="paper-meta"><strong>Published in:</strong> Conference/Journal Name, Year</p>
+                <p>Brief description or abstract of your paper. Share what problems you solved and what impact your work has.</p>
+                <div class="paper-links">
+                    <a href="#" target="_blank">PDF</a>
+                    <a href="#" target="_blank">DOI</a>
+                    <a href="#" target="_blank">Code</a>
+                </div>
+            </div>
+        </section>
+
+        <section id="artwork">
+            <h2>Artwork</h2>
+            <div class="artwork-grid">
+                <div class="artwork-item">
+                    <div class="artwork-img">Image 1</div>
+                    <div class="artwork-info">
+                        <h3>Artwork Title 1</h3>
+                        <p>Medium, Year</p>
+                    </div>
+                </div>
+
+                <div class="artwork-item">
+                    <div class="artwork-img">Image 2</div>
+                    <div class="artwork-info">
+                        <h3>Artwork Title 2</h3>
+                        <p>Medium, Year</p>
+                    </div>
+                </div>
+
+                <div class="artwork-item">
+                    <div class="artwork-img">Image 3</div>
+                    <div class="artwork-info">
+                        <h3>Artwork Title 3</h3>
+                        <p>Medium, Year</p>
+                    </div>
+                </div>
+
+                <div class="artwork-item">
+                    <div class="artwork-img">Image 4</div>
+                    <div class="artwork-info">
+                        <h3>Artwork Title 4</h3>
+                        <p>Medium, Year</p>
+                    </div>
+                </div>
+
+                <div class="artwork-item">
+                    <div class="artwork-img">Image 5</div>
+                    <div class="artwork-info">
+                        <h3>Artwork Title 5</h3>
+                        <p>Medium, Year</p>
+                    </div>
+                </div>
+
+                <div class="artwork-item">
+                    <div class="artwork-img">Image 6</div>
+                    <div class="artwork-info">
+                        <h3>Artwork Title 6</h3>
+                        <p>Medium, Year</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact">
+            <h2>Contact</h2>
+            <p>I'd love to hear from you! Feel free to reach out for collaborations, questions, or just to connect.</p>
+            <p style="margin-top: 1rem;"><strong>Email:</strong> your.email@example.com</p>
+        </section>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Your Name. All rights reserved.</p>
+        <div class="contact-links">
+            <a href="https://github.com/yourusername" target="_blank">GitHub</a>
+            <a href="https://linkedin.com/in/yourusername" target="_blank">LinkedIn</a>
+            <a href="https://twitter.com/yourusername" target="_blank">Twitter</a>
+            <a href="mailto:your.email@example.com">Email</a>
+        </div>
+    </footer>
+</body>
+</html>
