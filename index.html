@@ -16,8 +16,20 @@
     <meta property="og:type" content="website">
     
     <link rel="icon" type="image/jpg" href="favicon.jpg">
+    <meta name="color-scheme" content="dark">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Source+Serif+4:wght@400;700&display=swap">
     
     <style>
+        :root {
+            --bg: #141414;
+            --surface: #1c1c1c;
+            --text: #e4e4df;
+            --line: #d0d0ca;
+            --shadow: #2c2c2c;
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -25,17 +37,17 @@
         }
 
         body {
-            font-family: 'Courier New', Courier, monospace;
-            line-height: 1.8;
-            color: #000;
-            background: #f5f5f0;
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: var(--text);
+            background: var(--bg);
             background-image: 
                 repeating-linear-gradient(
                     0deg,
                     transparent,
                     transparent 2px,
-                    rgba(0,0,0,0.03) 2px,
-                    rgba(0,0,0,0.03) 4px
+                    rgba(255,255,255,0.02) 2px,
+                    rgba(255,255,255,0.02) 4px
                 );
         }
 
@@ -43,7 +55,7 @@
             color: #fff;
             padding: 2rem 1.5rem;
             text-align: center;
-            border-bottom: 4px solid #000;
+            border-bottom: 4px solid var(--line);
             position: relative;
             background-image: url('image 1.jpeg');
             background-size: cover;
@@ -51,6 +63,7 @@
         }
         
         header h1 {
+            font-family: 'Source Serif 4', serif;
             font-size: 2rem;
             margin-bottom: 0.3rem;
             letter-spacing: 0.1em;
@@ -69,9 +82,9 @@
         }
 
         nav {
-            background: #fff;
+            background: var(--surface);
             padding: 1.5rem;
-            border-bottom: 2px solid #000;
+            border-bottom: 2px solid var(--line);
             position: sticky;
             top: 0;
             z-index: 100;
@@ -82,7 +95,7 @@
             height: 80px;
             background: #000;
             margin-bottom: 1rem;
-            border: 2px solid #000;
+            border: 2px solid var(--line);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -100,7 +113,7 @@
         }
 
         nav a {
-            color: #000;
+            color: var(--text);
             text-decoration: none;
             font-weight: bold;
             font-size: 1.1rem;
@@ -112,21 +125,134 @@
         }
 
         nav a:hover {
-            border-bottom-color: #000;
+            border-bottom-color: var(--text);
+        }
+
+        .page {
+            display: grid;
+            grid-template-columns: 340px minmax(0, 1fr);
+            gap: 3rem;
+            align-items: start;
+            max-width: 1800px;
+            margin: 0 auto;
+            padding: 2rem 3vw;
+        }
+
+        .sidebar {
+            position: sticky;
+            top: 1.5rem;
+            background: var(--surface);
+            border: 3px solid var(--line);
+            box-shadow: 8px 8px 0 var(--shadow);
+        }
+
+        .sidebar header {
+            padding: 1rem;
+        }
+
+        .sidebar header h1 {
+            font-size: 1.3rem;
+            letter-spacing: 0.06em;
+            padding: 0.7rem 1rem;
+        }
+
+        .sidebar nav {
+            position: static;
+            padding: 1rem 1.2rem;
+        }
+
+        .sidebar nav ul {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.5rem 1rem;
+        }
+
+        .sidebar nav a {
+            font-size: 0.95rem;
+        }
+
+        .sidebar section {
+            background: transparent;
+            border: none;
+            box-shadow: none;
+            margin-bottom: 0;
+            padding: 1.2rem;
+        }
+
+        .sidebar section + section {
+            border-top: 1px dashed var(--line);
+        }
+
+        .sidebar section::before,
+        .container section::before {
+            display: none;
+        }
+
+        .sidebar h2 {
+            font-size: 1.1rem;
+            letter-spacing: 0.08em;
+            border-bottom-width: 2px;
+            margin-bottom: 0.8rem;
+        }
+
+        .sidebar p {
+            font-size: 0.85rem;
+            line-height: 1.5;
+        }
+
+        /* keep the sidebar fully visible on shorter windows instead of letting it scroll */
+        @media screen and (min-width: 901px) and (max-height: 700px) {
+            .sidebar { top: 1rem; }
+            .sidebar header { padding: 0.6rem; }
+            .sidebar header h1 { font-size: 1.1rem; padding: 0.5rem 0.8rem; }
+            .sidebar nav { padding: 0.6rem 1rem; }
+            .sidebar nav a { font-size: 0.85rem; }
+            .sidebar section { padding: 0.8rem 1rem; }
+            .sidebar h2 { font-size: 1rem; margin-bottom: 0.5rem; padding-bottom: 0.3rem; }
+            .sidebar p { font-size: 0.8rem; line-height: 1.4; }
+        }
+
+        @media screen and (min-width: 901px) and (max-height: 560px) {
+            .sidebar header { padding: 0.4rem; }
+            .sidebar nav { padding: 0.4rem 1rem; }
+            .sidebar section { padding: 0.5rem 1rem; }
+            .sidebar p { font-size: 0.75rem; line-height: 1.3; }
         }
 
         .container {
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 3rem 2rem;
+            min-width: 0;
+        }
+
+        .container section {
+            background: transparent;
+            border: none;
+            box-shadow: none;
+            padding: 0;
+        }
+
+        @media screen and (max-width: 900px) {
+            .page {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .sidebar {
+                position: static;
+            }
+
+            .sidebar nav ul {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 0.6rem 1.5rem;
+            }
         }
 
         section {
-            background: #fff;
+            background: var(--surface);
             margin-bottom: 3rem;
             padding: 3rem;
-            border: 3px solid #000;
-            box-shadow: 8px 8px 0 #000;
+            border: 3px solid var(--line);
+            box-shadow: 8px 8px 0 var(--shadow);
             position: relative;
         }
 
@@ -135,18 +261,19 @@
             position: absolute;
             top: -15px;
             left: 20px;
-            background: #fff;
+            background: var(--surface);
             padding: 0 10px;
             font-size: 1.5rem;
         }
 
         h2 {
-            color: #000;
+            font-family: 'Source Serif 4', serif;
+            color: var(--text);
             margin-bottom: 2rem;
             font-size: 2rem;
-            letter-spacing: 0.15em;
+            letter-spacing: 0.06em;
             text-transform: uppercase;
-            border-bottom: 3px solid #000;
+            border-bottom: 3px solid var(--line);
             padding-bottom: 0.5rem;
             font-weight: bold;
         }
@@ -154,32 +281,55 @@
         .paper {
             margin-bottom: 2.5rem;
             padding-bottom: 2rem;
-            border-bottom: 1px dashed #000;
+            border-bottom: 1px dashed var(--line);
         }
 
         .paper:last-child {
             border-bottom: none;
         }
 
+        .paper-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+        }
+
+        .paper-grid .paper {
+            margin-bottom: 0;
+            padding: 1.5rem;
+            border: 3px solid var(--line);
+            background: var(--surface);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .paper-grid .paper-links {
+            margin-top: auto;
+            padding-top: 1rem;
+        }
+
         .paper h3 {
-            color: #000;
+            font-family: 'Source Serif 4', serif;
+            color: var(--text);
             margin-bottom: 0.8rem;
-            font-size: 1.3rem;
+            font-size: 1.15rem;
+            line-height: 1.3;
             font-weight: bold;
             text-transform: uppercase;
-            letter-spacing: 0.05em;
+            letter-spacing: 0.03em;
         }
 
         .paper-meta {
-            color: #000;
+            color: var(--text);
             font-size: 0.95rem;
             margin-bottom: 0.5rem;
             line-height: 1.6;
         }
 
         .paper p {
+            font-size: 0.95rem;
             margin-top: 1rem;
-            text-align: justify;
+            text-align: left;
         }
 
         .paper-links {
@@ -188,8 +338,8 @@
 
         .paper-links a {
             display: inline-block;
-            background: #000;
-            color: #fff;
+            background: var(--text);
+            color: var(--bg);
             padding: 0.5rem 1.5rem;
             text-decoration: none;
             margin-right: 1rem;
@@ -198,13 +348,13 @@
             font-weight: bold;
             letter-spacing: 0.1em;
             text-transform: uppercase;
-            border: 2px solid #000;
+            border: 2px solid var(--text);
             transition: all 0.2s;
         }
 
         .paper-links a:hover {
-            background: #fff;
-            color: #000;
+            background: var(--surface);
+            color: var(--text);
         }
 
         .artwork-grid {
@@ -214,8 +364,8 @@
         }
 
         .artwork-item {
-            border: 3px solid #000;
-            background: #fff;
+            border: 3px solid var(--line);
+            background: var(--surface);
             transition: transform 0.2s;
         }
 
@@ -234,15 +384,16 @@
             font-size: 1.2rem;
             font-weight: bold;
             letter-spacing: 0.1em;
-            border-bottom: 3px solid #000;
+            border-bottom: 3px solid var(--line);
         }
 
         .artwork-info {
             padding: 1.5rem;
-            background: #fff;
+            background: var(--surface);
         }
 
         .artwork-info h3 {
+            font-family: 'Source Serif 4', serif;
             font-size: 1.1rem;
             margin-bottom: 0.5rem;
             font-weight: bold;
@@ -251,17 +402,17 @@
         }
 
         .artwork-info p {
-            color: #000;
+            color: var(--text);
             font-size: 0.9rem;
         }
 
         footer {
-            background: #000;
-            color: #fff;
+            background: #0a0a0a;
+            color: var(--text);
             text-align: center;
             padding: 3rem 2rem;
-            margin-top: 4rem;
-            border-top: 4px solid #000;
+            margin-top: 2rem;
+            border-top: 4px solid var(--line);
         }
 
         footer p {
@@ -277,7 +428,7 @@
         }
 
         .contact-links a {
-            color: #fff;
+            color: var(--text);
             text-decoration: none;
             font-weight: bold;
             letter-spacing: 0.1em;
@@ -288,12 +439,11 @@
         }
 
         .contact-links a:hover {
-            border-bottom-color: #fff;
+            border-bottom-color: var(--text);
         }
 
         p {
-            text-align: justify;
-            text-justify: inter-word;
+            text-align: left;
         }
 
         strong {
@@ -332,14 +482,14 @@
                 font-size: 0.8rem;
             }
         
-            .container {
-                padding: 1.5rem 1rem;
+            .page {
+                padding: 1rem;
             }
         
             section {
                 padding: 1.5rem;
                 margin-bottom: 1.5rem;
-                box-shadow: 4px 4px 0 #000;
+                box-shadow: 4px 4px 0 var(--shadow);
             }
         
             h2 {
@@ -368,6 +518,11 @@
                 grid-template-columns: 1fr;
                 gap: 1.5rem;
             }
+
+            .paper-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
         
             footer {
                 padding: 2rem 1rem;
@@ -382,30 +537,39 @@
     </style>
 </head>
 <body>
-    <header>
+    <div class="page">
+        <aside class="sidebar">
+            <header>
         <h1>Alaz Okudan</h1>
     </header>
 
-    <nav>
+            <nav>
         <ul>
-            <li><a href="#about">About</a></li>
             <li><a href="#publications">Publications</a></li>
             <li><a href="#projects">Projects</a></li>
-            <li><a href="#contact">Contact</a></li>
         </ul>
     </nav>
 
-    <div class="container">
-        <section id="about">
+            <section id="about">
             <h2>About Me</h2>
             <p>Hello there! I am a researcher and artist interested in photography and understanding our relationship with visual media technologies. You can find some of my writings and projects below.</p>
         </section>
 
-        <section id="publications">
+            <section id="contact">
+            <h2>Contact</h2>
+            <p>I'd love to hear from you! Feel free to reach out for collaborations, questions, comments or just to connect.</p>
+            <p style="margin-top: 1rem;"><strong>Email:</strong>alazokudan@gmail.com</p>
+        </section>
+        </aside>
+
+        <main class="container">
+            <section id="publications">
             <h2>Publications</h2>
 
+            <div class="paper-grid">
+
                         <div class="paper">
-                <div class="paper-image"><img src="quarry.jpg" alt="Publication title" style="width: 100%; height: 80px; object-fit: cover; display: block; border: 2px solid #000; margin-bottom: 1rem;"></div>
+                <div class="paper-image"><img src="quarry.jpg" alt="Publication title" style="width: 100%; height: 80px; object-fit: cover; display: block; border: 2px solid var(--line); margin-bottom: 1rem;"></div>
                 <h3>Climbing Out of the Abyss: On Tearing Objects, Injecting Values, and Automating Work</h3>
                 <p class="paper-meta"><strong>Authors:</strong>Alaz Okudan</p>
                 <p class="paper-meta"><strong>Published in:</strong>Flusser Studies 41: Special Issue on Vilém Flusser and Artificial Intelligence</p>
@@ -417,7 +581,7 @@
             </div>
 
             <div class="paper">
-                <div class="paper-image"><img src="Fig. 6.2.jpg" alt="Publication title" style="width: 100%; height: 80px; object-fit: cover; display: block; border: 2px solid #000; margin-bottom: 1rem;"></div>
+                <div class="paper-image"><img src="Fig. 6.2.jpg" alt="Publication title" style="width: 100%; height: 80px; object-fit: cover; display: block; border: 2px solid var(--line); margin-bottom: 1rem;"></div>
                 <h3>Camera Archaeologia: A Media Archaeological Investigation into the Contemporary Use of Nineteenth-Century Photographic Processes</h3>
                 <p class="paper-meta"><strong>Authors:</strong>Alaz Okudan</p>
                 <p class="paper-meta"><strong>Published in:</strong>19 / Interdisciplinary Studies in the Long Nineteenth Century, 2025</p>
@@ -428,7 +592,7 @@
             </div>
             
             <div class="paper">
-                <div class="paper-image"><img src="OCN_Collage_1.jpg" alt="Publication title" style="width: 100%; height: 80px; object-fit: cover; display: block; border: 2px solid #000; margin-bottom: 1rem;"></div>
+                <div class="paper-image"><img src="OCN_Collage_1.jpg" alt="Publication title" style="width: 100%; height: 80px; object-fit: cover; display: block; border: 2px solid var(--line); margin-bottom: 1rem;"></div>
                 <h3>Our Collective Noise (OCN): A Tactical Response to Computer Vision, Surveillance, and Noise</h3>
                 <p class="paper-meta"><strong>Authors:</strong>Alaz Okudan</p>
                 <p class="paper-meta"><strong>Published as part of:</strong>xCoAx 2025, 13th Conference on Computation, Communication, Aesthetics & X. Dundee, Scotland, 9-11 July</p>
@@ -441,7 +605,7 @@
             </div>
         
             <div class="paper">
-                <div class="paper-image"><img src="IMG00013.JPG" alt="Publication title" style="width: 100%; height: 80px; object-fit: cover; display: block; border: 2px solid #000; margin-bottom: 1rem;"></div>
+                <div class="paper-image"><img src="IMG00013.JPG" alt="Publication title" style="width: 100%; height: 80px; object-fit: cover; display: block; border: 2px solid var(--line); margin-bottom: 1rem;"></div>
                 <h3>Infra-ordinary Images: Machine Vision's Ways of Permeating Everyday Life</h3>
                 <p class="paper-meta"><strong>Authors:</strong>Alaz Okudan</p>
                 <p class="paper-meta"><strong>Published as part of:</strong>Politics of the Machines 2024: Lifelikeness & Beyond. Aachen, Germany, 22-27 April</p>
@@ -452,7 +616,7 @@
             </div>
         
             <div class="paper">
-                <div class="paper-image"><img src="eyeappratus.png" alt="Publication title" style="width: 100%; height: 80px; object-fit: cover; display: block; border: 2px solid #000; margin-bottom: 1rem;"></div>
+                <div class="paper-image"><img src="eyeappratus.png" alt="Publication title" style="width: 100%; height: 80px; object-fit: cover; display: block; border: 2px solid var(--line); margin-bottom: 1rem;"></div>
                 <h3>Eye-pparatus: Re-imagining the Human Eye in the Nineteenth Century</h3>
                 <p class="paper-meta"><strong>Authors:</strong>Alaz Okudan</p>
                 <p class="paper-meta"><strong>Published in:</strong>Flussera Robionica, 2022</p>
@@ -462,14 +626,15 @@
                     <a href="https://opus4.kobv.de/opus4-fhpotsdam/frontdoor/index/index/docId/2955" target="_blank">Book</a>
                 </div>
             </div>
+            </div>
         </section>
 
-        <section id="projects">
+            <section id="projects">
             <h2>Projects</h2>
             
             <div class="artwork-grid">
                 <div class="artwork-item">
-                    <img src="OCN_Detected_2.jpg" alt="Artwork Title 1" style="width: 100%; height: 200px; object-fit: cover; display: block; border-bottom: 3px solid #000;">
+                    <img src="OCN_Detected_2.jpg" alt="Artwork Title 1" style="width: 100%; height: 200px; object-fit: cover; display: block; border-bottom: 3px solid var(--line);">
                     <div class="artwork-info">
                         <h3>Our Collective Noise (OCN)</h3>
                         <p>Computer Vision, Counter-Surveillance / 2025</p>
@@ -477,7 +642,7 @@
                 </div>
                 
                 <div class="artwork-item">
-                    <img src="test_prints_1.jpg" alt="Artwork Title 1" style="width: 100%; height: 200px; object-fit: cover; display: block; border-bottom: 3px solid #000;">
+                    <img src="test_prints_1.jpg" alt="Artwork Title 1" style="width: 100%; height: 200px; object-fit: cover; display: block; border-bottom: 3px solid var(--line);">
                     <div class="artwork-info">
                         <h3>test_prints</h3>
                         <p>Gelatin Silver Prints, Darkroom Pop-up Exhibition / January 2025</p>
@@ -485,7 +650,7 @@
                 </div>
 
                 <div class="artwork-item">
-                    <img src="nonplacesofpiss_1.jpg" alt="Artwork Title 1" style="width: 100%; height: 200px; object-fit: cover; display: block; border-bottom: 3px solid #000;">
+                    <img src="nonplacesofpiss_1.jpg" alt="Artwork Title 1" style="width: 100%; height: 200px; object-fit: cover; display: block; border-bottom: 3px solid var(--line);">
                     <div class="artwork-info">
                         <h3>nonplacesof.piss</h3>
                         <p>Photography / 2022-ongoing</p>
@@ -493,7 +658,7 @@
                 </div>
 
                 <div class="artwork-item">
-                    <img src="calder_hunting.JPG" alt="Artwork Title 1" style="width: 100%; height: 200px; object-fit: cover; display: block; border-bottom: 3px solid #000;">
+                    <img src="calder_hunting.JPG" alt="Artwork Title 1" style="width: 100%; height: 200px; object-fit: cover; display: block; border-bottom: 3px solid var(--line);">
                     <div class="artwork-info">
                         <h3>Calder Hunting</h3>
                         <p>Photography / 2023-ongoing</p>
@@ -501,12 +666,7 @@
                 </div>
             </div>
         </section>
-
-        <section id="contact">
-            <h2>Contact</h2>
-            <p>I'd love to hear from you! Feel free to reach out for collaborations, questions, comments or just to connect.</p>
-            <p style="margin-top: 1rem;"><strong>Email:</strong>alazokudan@gmail.com</p>
-        </section>
+        </main>
     </div>
 
     <footer>
