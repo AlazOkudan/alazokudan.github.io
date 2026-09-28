@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alaz Okudan</title>
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Alaz Okudan is a researcher and artist interested in visual technologies. PhD candidate at University of Galway.">
+    <meta name="keywords" content="Alaz Okudan, researcher, artist, visual technologies, AI, machine vision, University of Galway, photography">
+    <meta name="author" content="Alaz Okudan">
+    
+    <!-- Open Graph for social media -->
+    <meta property="og:title" content="Alaz Okudan">
+    <meta property="og:description" content="Researcher and artist exploring visual technologies and culture">
+    <meta property="og:url" content="https://alazokudan.github.io">
+    <meta property="og:type" content="website">
+    
+    <link rel="icon" type="image/jpg" href="images/favicon.jpg">
+    <meta name="color-scheme" content="dark">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Source+Serif+4:wght@400;700&display=swap">
+    
+    <style>
+        :root {
+            --bg: #141414;
+            --surface: #1c1c1c;
+            --text: #e4e4df;
+            --line: #d0d0ca;
+            --shadow: #2c2c2c;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: var(--text);
+            background: var(--bg);
+            background-image: 
+                repeating-linear-gradient(
+                    0deg,
+                    transparent,
+                    transparent 2px,
+                    rgba(255,255,255,0.02) 2px,
+                    rgba(255,255,255,0.02) 4px
+                );
+        }
+
+        header {
+            color: #fff;
+            padding: 2rem 1.5rem;
+            text-align: center;
+            border-bottom: 4px solid var(--line);
+            position: relative;
+            background-image: url('images/header.jpg');
+            background-size: cover;
+            background-position: center;
+        }
+        
+        header h1 {
+            font-family: 'Source Serif 4', serif;
+            font-size: 2rem;
+            margin-bottom: 0.3rem;
+            letter-spacing: 0.1em;
+            font-weight: bold;
+            text-transform: uppercase;
+            background: #000;
+            display: inline-block;
+            padding: 1rem 2rem;
+            border: 3px solid #fff;
+        }
+
+        header p {
+            font-size: 1.1rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+        }
+
+        nav {
+            background: var(--surface);
+            padding: 1.5rem;
+            border-bottom: 2px solid var(--line);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .paper-image {
+            width: 100%;
+            height: 80px;
+            background: #000;
+            margin-bottom: 1rem;
+            border: 2px solid var(--line);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 0.8rem;
+            letter-spacing: 0.1em;
+        }
+        
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            color: var(--text);
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            border-bottom: 2px solid transparent;
+            padding-bottom: 2px;
+            transition: border-color 0.2s;
+        }
+
+        nav a:hover {
+            border-bottom-color: var(--text);
+        }
+
+        .page {
+            display: grid;
+            grid-template-columns: 340px minmax(0, 1fr);
+            gap: 3rem;
+            align-items: start;
+            max-width: 1800px;
+            margin: 0 auto;
+            padding: 2rem 3vw;
+        }
+
+        .sidebar {
+            position: sticky;
+            top: 1.5rem;
+            background: var(--surface);
+            border: 3px solid var(--line);
+            box-shadow: 8px 8px 0 var(--shadow);
+        }
+
+        .sidebar header {
+            padding: 1rem;
+        }
+
+        .sidebar header h1 {
+            font-size: 1.3rem;
+            letter-spacing: 0.06em;
+            padding: 0.7rem 1rem;
+        }
+
+        .sidebar nav {
+            position: static;
+            padding: 1rem 1.2rem;
+        }
+
+        .sidebar nav ul {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.5rem 1rem;
+        }
+
+        .sidebar nav a {
+            font-size: 0.95rem;
+        }
+
+        .sidebar section {
+            background: transparent;
+            border: none;
+            box-shadow: none;
+            margin-bottom: 0;
+            padding: 1.2rem;
+        }
+
+        .sidebar section + section {
+            border-top: 1px dashed var(--line);
+        }
+
+        .sidebar section::before,
+        .container section::before {
+            display: none;
+        }
+
+        .sidebar h2 {
+            font-size: 1.1rem;
+            letter-spacing: 0.08em;
+            border-bottom-width: 2px;
+            margin-bottom: 0.8rem;
+        }
+
+        .sidebar p {
+            font-size: 0.85rem;
+            line-height: 1.5;
+        }
+
+        /* keep the sidebar fully visible on shorter windows instead of letting it scroll */
+        @media screen and (min-width: 901px) and (max-height: 700px) {
+            .sidebar { top: 1rem; }
+            .sidebar header { padding: 0.6rem; }
+            .sidebar header h1 { font-size: 1.1rem; padding: 0.5rem 0.8rem; }
+            .sidebar nav { padding: 0.6rem 1rem; }
+            .sidebar nav a { font-size: 0.85rem; }
+            .sidebar section { padding: 0.8rem 1rem; }
+            .sidebar h2 { font-size: 1rem; margin-bottom: 0.5rem; padding-bottom: 0.3rem; }
+            .sidebar p { font-size: 0.8rem; line-height: 1.4; }
+        }
+
+        @media screen and (min-width: 901px) and (max-height: 560px) {
+            .sidebar header { padding: 0.4rem; }
+            .sidebar nav { padding: 0.4rem 1rem; }
+            .sidebar section { padding: 0.5rem 1rem; }
+            .sidebar p { font-size: 0.75rem; line-height: 1.3; }
+        }
+
+        .container {
+            min-width: 0;
+        }
+
+        .container section {
+            background: transparent;
+            border: none;
+            box-shadow: none;
+            padding: 0;
+        }
+
+        @media screen and (max-width: 900px) {
+            .page {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .sidebar {
+                position: static;
+            }
+
+            .sidebar nav ul {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 0.6rem 1.5rem;
+            }
+        }
+
+        section {
+            background: var(--surface);
+            margin-bottom: 3rem;
+            padding: 3rem;
+            border: 3px solid var(--line);
+            box-shadow: 8px 8px 0 var(--shadow);
+            position: relative;
+        }
+
+        section::before {
+            content: '■';
+            position: absolute;
+            top: -15px;
+            left: 20px;
+            background: var(--surface);
+            padding: 0 10px;
+            font-size: 1.5rem;
+        }
+
+        h2 {
+            font-family: 'Source Serif 4', serif;
+            color: var(--text);
+            margin-bottom: 2rem;
+            font-size: 2rem;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            border-bottom: 3px solid var(--line);
+            padding-bottom: 0.5rem;
+            font-weight: bold;
+        }
+
+        .paper {
+            margin-bottom: 2.5rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px dashed var(--line);
+        }
+
+        .paper:last-child {
+            border-bottom: none;
+        }
+
+        .paper-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+        }
+
+        .paper-grid .paper {
+            margin-bottom: 0;
+            padding: 1.5rem;
+            border: 3px solid var(--line);
+            background: var(--surface);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .paper-grid .paper-links {
+            margin-top: auto;
+            padding-top: 1rem;
+        }
+
+        .paper h3 {
+            font-family: 'Source Serif 4', serif;
+            color: var(--text);
+            margin-bottom: 0.8rem;
+            font-size: 1.15rem;
+            line-height: 1.3;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+        }
+
+        .paper-meta {
+            color: var(--text);
+            font-size: 0.95rem;
+            margin-bottom: 0.5rem;
+            line-height: 1.6;
+        }
+
+        .paper p {
+            font-size: 0.95rem;
+            margin-top: 1rem;
+            text-align: left;
+        }
+
+        .paper-links {
+            margin-top: 1rem;
+        }
+
+        .paper-links a {
+            display: inline-block;
+            background: var(--text);
+            color: var(--bg);
+            padding: 0.5rem 1.5rem;
+            text-decoration: none;
+            margin-right: 1rem;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+            font-weight: bold;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            border: 2px solid var(--text);
+            transition: all 0.2s;
+        }
+
+        .paper-links a:hover {
+            background: var(--surface);
+            color: var(--text);
+        }
+
+        .artwork-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .artwork-item {
+            border: 3px solid var(--line);
+            background: var(--surface);
+            transition: transform 0.2s;
+        }
+
+        .artwork-item:hover {
+            transform: translate(4px, 4px);
+        }
+
+        .artwork-img {
+            width: 100%;
+            height: 200px;
+            background: #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 1.2rem;
+            font-weight: bold;
+            letter-spacing: 0.1em;
+            border-bottom: 3px solid var(--line);
+        }
+
+        .artwork-info {
+            padding: 1.5rem;
+            background: var(--surface);
+        }
+
+        .artwork-info h3 {
+            font-family: 'Source Serif 4', serif;
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .artwork-info p {
+            color: var(--text);
+            font-size: 0.9rem;
+        }
+
+        footer {
+            background: #0a0a0a;
+            color: var(--text);
+            text-align: center;
+            padding: 3rem 2rem;
+            margin-top: 2rem;
+            border-top: 4px solid var(--line);
+        }
+
+        footer p {
+            letter-spacing: 0.1em;
+        }
+
+        .contact-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .contact-links a {
+            color: var(--text);
+            text-decoration: none;
+            font-weight: bold;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            border-bottom: 2px solid transparent;
+            padding-bottom: 2px;
+            transition: border-color 0.2s;
+        }
+
+        .contact-links a:hover {
+            border-bottom-color: var(--text);
+        }
+
+        p {
+            text-align: left;
+        }
+
+        strong {
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        /* Mobile responsive styles */
+        @media screen and (max-width: 768px) {
+            header {
+                padding: 1.5rem 1rem;
+            }
+        
+            header h1 {
+                font-size: 1.5rem;
+                padding: 0.8rem 1.5rem;
+                border: 2px solid #fff;
+            }
+        
+            header h2 {
+                font-size: 0.8rem;
+                padding: 0.4rem 1rem;
+                border: 1px solid #fff;
+            }
+        
+            nav {
+                padding: 0.8rem;
+            }
+        
+            nav ul {
+                gap: 1.5rem;
+            }
+        
+            nav a {
+                font-size: 0.8rem;
+            }
+        
+            .page {
+                padding: 1rem;
+            }
+        
+            section {
+                padding: 1.5rem;
+                margin-bottom: 1.5rem;
+                box-shadow: 4px 4px 0 var(--shadow);
+            }
+        
+            h2 {
+                font-size: 1.2rem;
+                margin-bottom: 1rem;
+            }
+        
+            .paper h3 {
+                font-size: 1rem;
+            }
+        
+            .paper-meta {
+                font-size: 0.85rem;
+            }
+        
+            .paper-links a {
+                padding: 0.4rem 1rem;
+                font-size: 0.8rem;
+            }
+        
+            .paper-image {
+                height: 60px;
+            }
+        
+            .artwork-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .paper-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+        
+            footer {
+                padding: 2rem 1rem;
+            }
+        
+            .contact-links {
+                gap: 1rem;
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="page">
+        <aside class="sidebar">
+            <header>
+        <h1>Alaz Okudan</h1>
+    </header>
+
+            <nav>
+        <ul>
+            <li><a href="#about">About</a></li>
+            <li><a href="#publications">Publications</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+            <section id="about">
+            <h2>About Me</h2>
+            <p>Hello there! I am a researcher and artist interested in photography and understanding our relationship with visual media technologies. You can find some of my writings and projects below.</p>
+        </section>
+
+            <section id="contact">
+            <h2>Contact</h2>
+            <p>I'd love to hear from you! Feel free to reach out for collaborations, questions, comments or just to connect.</p>
+            <p style="margin-top: 1rem;"><strong>Email:</strong>alazokudan@gmail.com</p>
+        </section>
+        </aside>
+
+        <main class="container">
+            <section id="publications">
+            <h2>Publications</h2>
+
+            <div class="paper-grid">
+
+                        <div class="paper">
+                <div class="paper-image"><img src="images/publications/pub-01.jpg" alt="Publication title" style="width: 100%; height: 80px; object-fit: cover; display: block; border: 2px solid var(--line); margin-bottom: 1rem;"></div>
+                <h3>Climbing Out of the Abyss: On Tearing Objects, Injecting Values, and Automating Work</h3>
+                <p class="paper-meta"><strong>Authors:</strong>Alaz Okudan</p>
+                <p class="paper-meta"><strong>Published in:</strong>Flusser Studies 41: Special Issue on Vilém Flusser and Artificial Intelligence</p>
+                <p>This essay is an expanded discussion following Vilém Flusser’s unpublished essay On Being Subject to Objects in which he argued that the human is split between what is and what should be, living in the abyss between phenomena and values. By turning branches into sticks and rare minerals into data centers, the human makes a vain attempt to produce things to climb out of its abyss while increasingly becoming subject to its own cultural objects.</p>
+                <div class="paper-links">
+                    <a href="https://www.flusserstudies.net/sites/www.flusserstudies.net/files/media/attachments/okudan-climbing-out-of-the-abyss.pdf" target="_blank">Article</a>
+                    <a href="https://www.flusserstudies.net/current-issue" target="_blank">Flusser Studies Issue</a>
+                </div>
+            </div>
+
+            <div class="paper">
+                <div class="paper-image"><img src="images/publications/pub-02.jpg" alt="Publication title" style="width: 100%; height: 80px; object-fit: cover; display: block; border: 2px solid var(--line); margin-bottom: 1rem;"></div>
+                <h3>Camera Archaeologia: A Media Archaeological Investigation into the Contemporary Use of Nineteenth-Century Photographic Processes</h3>
+                <p class="paper-meta"><strong>Authors:</strong>Alaz Okudan</p>
+                <p class="paper-meta"><strong>Published in:</strong>19 / Interdisciplinary Studies in the Long Nineteenth Century, 2025</p>
+                <p>As digital technologies determine the practice and experience of everyday life today, the earliest photochemical processes resurface to provide stimulating and provocative modes for visual production. Around the world, a small but attention-worthy number of photographers attempt to rediscover what nineteenth-century photographic processes can offer without turning their backs on digital. This paper explores the role of cuh "old" practices in the contemporary context. </p>
+                <div class="paper-links">
+                    <a href="https://19.bbk.ac.uk/article/id/17135/" target="_blank">Article</a>
+                </div>
+            </div>
+            
+            <div class="paper">
+                <div class="paper-image"><img src="images/publications/pub-03.jpg" alt="Publication title" style="width: 100%; height: 80px; object-fit: cover; display: block; border: 2px solid var(--line); margin-bottom: 1rem;"></div>
+                <h3>Our Collective Noise (OCN): A Tactical Response to Computer Vision, Surveillance, and Noise</h3>
+                <p class="paper-meta"><strong>Authors:</strong>Alaz Okudan</p>
+                <p class="paper-meta"><strong>Published as part of:</strong>xCoAx 2025, 13th Conference on Computation, Communication, Aesthetics & X. Dundee, Scotland, 9-11 July</p>
+                <p>Our Collective Noise (OCN) is a research-based tactical media project. As an attempt to transform the top-down pervasive qualities of machine learning (ML), computer vision (CV), and surveillance technologies into a bottom-up tactical tool, it plays around the concepts of noise, de-identification, accidental aesthetics, and human-machine collaboration.</p>
+                <div class="paper-links">
+                    <a href="https://researchrepository.universityofgalway.ie/entities/publication/57e0fc31-e822-4cc1-9691-1da8ea049bf8" target="_blank">PDF</a>
+                    <a href="https://classof25.xcoax.org/paper02.html" target="_blank">DOI</a>
+                    <a href="https://github.com/AlazOkudan/Our-Collective-Noise-OCN-" target="_blank">Code</a>
+                </div>
+            </div>
+        
+            <div class="paper">
+                <div class="paper-image"><img src="images/publications/pub-04.jpg" alt="Publication title" style="width: 100%; height: 80px; object-fit: cover; display: block; border: 2px solid var(--line); margin-bottom: 1rem;"></div>
+                <h3>Infra-ordinary Images: Machine Vision's Ways of Permeating Everyday Life</h3>
+                <p class="paper-meta"><strong>Authors:</strong>Alaz Okudan</p>
+                <p class="paper-meta"><strong>Published as part of:</strong>Politics of the Machines 2024: Lifelikeness & Beyond. Aachen, Germany, 22-27 April</p>
+                <p>French cultural critic Georges Perec suggests that people should shift their attention away from the spectacular and extraordinary to the everyday, habitual aspects of life, as these hold the true essence of our experiences. Perec uses the term 'infra-ordinary' to describe these unnoticed, routine elements of life that, despite being constructed, feel second nature to us. This my attempt to think about images that become infra-ordinary.</p>
+                <div class="paper-links">
+                    <a href="https://www.scienceopen.com/hosted-document?doi=10.14236/ewic/POM24.12" target="_blank">Article</a>
+                </div>
+            </div>
+        
+            <div class="paper">
+                <div class="paper-image"><img src="images/publications/pub-05.png" alt="Publication title" style="width: 100%; height: 80px; object-fit: cover; display: block; border: 2px solid var(--line); margin-bottom: 1rem;"></div>
+                <h3>Eye-pparatus: Re-imagining the Human Eye in the Nineteenth Century</h3>
+                <p class="paper-meta"><strong>Authors:</strong>Alaz Okudan</p>
+                <p class="paper-meta"><strong>Published in:</strong>Flussera Robionica, 2022</p>
+                <p>"In a Foucauldian sense, like any other institution, with the presupposition of the human eye as a recording apparatus lying in wait, the medium of human vision became a site for imagining regulatory and disciplinary institutions. The emergence of automated cameras and video devices has been foreshadowed by imaginary practical properties of the eye-pparatus. The functional embodiment of the previously imagined aspects resulted in a more precise and comprehensive form of visual surveillance in the century to come. Yet, this is not to say that optography's ultimate aim was to arrive at contemporary surveillance technologies. An intricate network of technologies and discourses lies beneath the idea of surveillance, of which the optographic desire could only be read and interpreted as a contributing part."</p>
+                <div class="paper-links">
+                    <a href="https://researchrepository.universityofgalway.ie/entities/publication/0f03beb2-8653-4e09-a728-d3a591e29564" target="_blank">Article</a>
+                    <a href="https://opus4.kobv.de/opus4-fhpotsdam/frontdoor/index/index/docId/2955" target="_blank">Book</a>
+                </div>
+            </div>
+            </div>
+        </section>
+
+            <section id="projects">
+            <h2>Projects</h2>
+            
+            <div class="artwork-grid">
+                <div class="artwork-item">
+                    <img src="images/projects/ocn/ocn-01.jpg" alt="Artwork Title 1" style="width: 100%; height: 200px; object-fit: cover; display: block; border-bottom: 3px solid var(--line);">
+                    <div class="artwork-info">
+                        <h3>Our Collective Noise (OCN)</h3>
+                        <p>Computer Vision, Counter-Surveillance / 2025</p>
+                    </div>
+                </div>
+                
+                <div class="artwork-item">
+                    <img src="images/projects/test-prints/test-prints-01.jpg" alt="Artwork Title 1" style="width: 100%; height: 200px; object-fit: cover; display: block; border-bottom: 3px solid var(--line);">
+                    <div class="artwork-info">
+                        <h3>test_prints</h3>
+                        <p>Gelatin Silver Prints, Darkroom Pop-up Exhibition / January 2025</p>
+                    </div>
+                </div>
+
+                <div class="artwork-item">
+                    <img src="images/projects/nonplaces/nonplaces-01.jpg" alt="Artwork Title 1" style="width: 100%; height: 200px; object-fit: cover; display: block; border-bottom: 3px solid var(--line);">
+                    <div class="artwork-info">
+                        <h3>nonplacesof.piss</h3>
+                        <p>Photography / 2022-ongoing</p>
+                    </div>
+                </div>
+
+                <div class="artwork-item">
+                    <img src="images/projects/calder-hunting/calder-hunting-01.jpg" alt="Artwork Title 1" style="width: 100%; height: 200px; object-fit: cover; display: block; border-bottom: 3px solid var(--line);">
+                    <div class="artwork-info">
+                        <h3>Calder Hunting</h3>
+                        <p>Photography / 2023-ongoing</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        </main>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Alaz Okudan. All rights reserved.</p>
+        <div class="contact-links">
+        </div>
+    </footer>
+</body>
+</html>
