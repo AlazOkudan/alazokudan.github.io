@@ -373,6 +373,76 @@
             transform: translate(4px, 4px);
         }
 
+        .slider {
+            position: relative;
+            height: 200px;
+            overflow: hidden;
+            border-bottom: 3px solid var(--line);
+            background: #000;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+            touch-action: manipulation;
+        }
+
+        .slider.multi {
+            cursor: pointer;
+        }
+
+        .slider .track {
+            display: flex;
+            height: 100%;
+            transition: transform 0.45s ease;
+        }
+
+        .slider img {
+            flex: 0 0 100%;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .slider .dots {
+            position: absolute;
+            bottom: 10px;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: center;
+            gap: 7px;
+            pointer-events: none;
+        }
+
+        .slider .dot {
+            width: 9px;
+            height: 9px;
+            border-radius: 50%;
+            border: 1.5px solid #fff;
+            box-shadow: 0 0 3px rgba(0,0,0,0.7);
+        }
+
+        .slider .dot.active {
+            background: #fff;
+        }
+
+        .slider .count {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            background: rgba(0,0,0,0.75);
+            color: #fff;
+            font-size: 0.7rem;
+            letter-spacing: 0.06em;
+            padding: 1px 7px;
+            pointer-events: none;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .slider .track {
+                transition: none;
+            }
+        }
+
         .artwork-img {
             width: 100%;
             height: 200px;
@@ -627,9 +697,12 @@
             <section id="projects">
             <h2>Projects</h2>
             
+            <!-- To add more images to a project, add another <img> line inside its slider div. Dots appear automatically. -->
             <div class="artwork-grid">
                 <div class="artwork-item">
-                    <img src="images/projects/ocn/ocn-01.jpg" alt="Artwork Title 1" style="width: 100%; height: 200px; object-fit: cover; display: block; border-bottom: 3px solid var(--line);">
+                    <div class="slider">
+                        <img src="images/projects/ocn/ocn-01.jpg" alt="Artwork Title 1">
+                    </div>
                     <div class="artwork-info">
                         <h3>Our Collective Noise (OCN)</h3>
                         <p>Computer Vision, Counter-Surveillance / 2025</p>
@@ -637,7 +710,9 @@
                 </div>
                 
                 <div class="artwork-item">
-                    <img src="images/projects/test-prints/test-prints-01.jpg" alt="Artwork Title 1" style="width: 100%; height: 200px; object-fit: cover; display: block; border-bottom: 3px solid var(--line);">
+                    <div class="slider">
+                        <img src="images/projects/test-prints/test-prints-01.jpg" alt="Artwork Title 1">
+                    </div>
                     <div class="artwork-info">
                         <h3>test_prints</h3>
                         <p>Gelatin Silver Prints, Darkroom Pop-up Exhibition / January 2025</p>
@@ -645,7 +720,9 @@
                 </div>
 
                 <div class="artwork-item">
-                    <img src="images/projects/nonplaces/nonplaces-01.jpg" alt="Artwork Title 1" style="width: 100%; height: 200px; object-fit: cover; display: block; border-bottom: 3px solid var(--line);">
+                    <div class="slider">
+                        <img src="images/projects/nonplaces/nonplaces-01.jpg" alt="Artwork Title 1">
+                    </div>
                     <div class="artwork-info">
                         <h3>nonplacesof.piss</h3>
                         <p>Photography / 2022-ongoing</p>
@@ -653,7 +730,18 @@
                 </div>
 
                 <div class="artwork-item">
-                    <img src="images/projects/calder-hunting/calder-hunting-01.jpg" alt="Artwork Title 1" style="width: 100%; height: 200px; object-fit: cover; display: block; border-bottom: 3px solid var(--line);">
+                    <div class="slider">
+                        <img src="images/projects/calder-hunting/calder-hunting-01.jpg" alt="Artwork Title 1">
+                        <img src="images/projects/calder-hunting/calder-hunting-02.jpg" alt="Artwork Title 2">
+                        <img src="images/projects/calder-hunting/calder-hunting-03.jpg" alt="Artwork Title 3">
+                        <img src="images/projects/calder-hunting/calder-hunting-04.jpeg" alt="Artwork Title 4">
+                        <img src="images/projects/calder-hunting/calder-hunting-05.jpeg" alt="Artwork Title 5">
+                        <img src="images/projects/calder-hunting/calder-hunting-06.jpg" alt="Artwork Title 6">
+                        <img src="images/projects/calder-hunting/calder-hunting-07.jpeg" alt="Artwork Title 7">
+                        <img src="images/projects/calder-hunting/calder-hunting-08.jpg" alt="Artwork Title 8">
+                        <img src="images/projects/calder-hunting/calder-hunting-09.jpeg" alt="Artwork Title 9">
+                        <img src="images/projects/calder-hunting/calder-hunting-10.jpeg" alt="Artwork Title 10">
+                    </div>
                     <div class="artwork-info">
                         <h3>Calder Hunting</h3>
                         <p>Photography / 2023-ongoing</p>
@@ -669,5 +757,70 @@
         <div class="contact-links">
         </div>
     </footer>
+
+    <script>
+        document.querySelectorAll('.slider').forEach(function (slider) {
+            var imgs = Array.prototype.slice.call(slider.querySelectorAll('img'));
+            var n = imgs.length;
+            if (n < 2) return;
+
+            slider.classList.add('multi');
+            slider.setAttribute('role', 'button');
+            slider.setAttribute('tabindex', '0');
+            slider.setAttribute('aria-label', 'Next image');
+
+            var track = document.createElement('div');
+            track.className = 'track';
+            imgs.forEach(function (img, k) {
+                if (k > 0) img.loading = 'lazy';
+                track.appendChild(img);
+            });
+            // copy of the first image at the end, so the last image also swipes left into the first
+            var clone = imgs[0].cloneNode();
+            clone.alt = '';
+            clone.setAttribute('aria-hidden', 'true');
+            track.appendChild(clone);
+            slider.appendChild(track);
+
+            var dots = document.createElement('div');
+            dots.className = 'dots';
+            imgs.forEach(function (_, k) {
+                var d = document.createElement('span');
+                d.className = 'dot' + (k ? '' : ' active');
+                dots.appendChild(d);
+            });
+            var count = document.createElement('div');
+            count.className = 'count';
+            count.textContent = '1 / ' + n;
+            slider.appendChild(dots);
+            slider.appendChild(count);
+
+            var i = 0, busy = false;
+            function next() {
+                if (busy) return;
+                busy = true;
+                dots.children[i % n].classList.remove('active');
+                i++;
+                track.style.transform = 'translateX(-' + (i * 100) + '%)';
+                dots.children[i % n].classList.add('active');
+                count.textContent = ((i % n) + 1) + ' / ' + n;
+                setTimeout(function () {
+                    if (i === n) {
+                        track.style.transition = 'none';
+                        i = 0;
+                        track.style.transform = 'translateX(0)';
+                        void track.offsetWidth;
+                        track.style.transition = '';
+                    }
+                    busy = false;
+                }, 470);
+            }
+
+            slider.addEventListener('click', next);
+            slider.addEventListener('keydown', function (e) {
+                if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); next(); }
+            });
+        });
+    </script>
 </body>
 </html>
